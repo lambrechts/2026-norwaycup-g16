@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173f73" />
+    <meta name="description" content="Dagsplan for G16 under Norway Cup 2026" />
+    <title>G16 på Norway Cup – dagsplan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #17202b; --muted: #66717f; --line: #dfe4ea; --bg: #f4f7fa;
+        --card: #fff; --blue: #1769aa; --blue-soft: #e3f1fb;
+        --yellow: #f4c430; --yellow-soft: #fff4bf; --navy: #173f73;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 24px 14px 60px; color: var(--ink); background: var(--bg); font: 15px/1.45 Inter, system-ui, sans-serif; }
+      .wrap { width: min(100%, 740px); margin: auto; }
+      header { padding: 24px; border-radius: 20px; color: #fff; background: linear-gradient(135deg, #173f73, #0d6e9f); box-shadow: 0 16px 36px rgba(23,63,115,.18); }
+      .eyebrow, h1, .day-title, .time, .activity-title, button { font-family: Archivo, system-ui, sans-serif; }
+      .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; opacity: .78; }
+      h1 { margin: .2em 0 .3em; font-size: clamp(2rem, 8vw, 3.35rem); line-height: .98; letter-spacing: -.035em; }
+      header p { max-width: 52ch; margin: 0; color: rgba(255,255,255,.82); }
+      .quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+      .quick a { padding: 7px 12px; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; color: #fff; font-size: .78rem; font-weight: 600; text-decoration: none; }
+      .quick a:hover { background: #fff; color: var(--navy); }
+      .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 12px; }
+      button { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--card); color: var(--muted); font-size: .82rem; font-weight: 700; cursor: pointer; }
+      button[aria-pressed="true"] { border-color: var(--navy); background: var(--navy); color: #fff; }
+      button:focus-visible, a:focus-visible { outline: 3px solid #ffca28; outline-offset: 3px; }
+      .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue); }
+      .dot.yellow { background: var(--yellow); }
+      .day-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 26px 2px 12px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
+      .day-title { font-size: 1.15rem; font-weight: 800; }
+      .date { color: var(--muted); font-size: .82rem; }
+      .timeline { display: grid; gap: 10px; }
+      .activity { position: relative; display: grid; grid-template-columns: 68px 1fr; gap: 14px; overflow: hidden; padding: 16px 18px 16px 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: 0 3px 12px rgba(21,42,62,.04); }
+      .activity::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: #aeb7c1; }
+      .activity.blue::before { background: var(--blue); }
+      .activity.yellow::before { background: var(--yellow); }
+      .activity.both::before { background: linear-gradient(to bottom, var(--blue) 0 50%, var(--yellow) 50%); }
+      .time { font-size: 1.25rem; font-weight: 800; line-height: 1.15; letter-spacing: -.02em; }
+      .time.empty { color: var(--muted); font-size: .8rem; letter-spacing: 0; }
+      .activity-title { font-weight: 800; }
+      .meta { margin-top: 3px; color: var(--muted); font-size: .83rem; }
+      .badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+      .badge { padding: 3px 8px; border-radius: 6px; font: 700 .67rem Archivo, sans-serif; letter-spacing: .04em; text-decoration: none; text-transform: uppercase; }
+      .badge.blue { color: #fff; background: var(--blue); }
+      .badge.yellow { color: #443600; background: var(--yellow); }
+      .match { border-width: 1.5px; }
+      .match.blue { background: linear-gradient(110deg, var(--blue-soft), #fff 45%); }
+      .match.yellow { background: linear-gradient(110deg, var(--yellow-soft), #fff 45%); }
+      .match-label { margin-bottom: 3px; color: var(--navy); font: 700 .68rem Archivo, sans-serif; letter-spacing: .09em; text-transform: uppercase; }
+      .venue-link { color: var(--navy); font-weight: 700; text-underline-offset: 2px; }
+      .vest-note { margin-top: 10px; padding: 8px 10px; border-radius: 8px; color: #7a3100; background: #fff0dc; font-size: .78rem; font-weight: 700; }
+      .result { margin-top: 7px; font-weight: 700; }
+      .hidden { display: none; }
+      .empty-state { display: none; padding: 24px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); text-align: center; background: #fff; }
+      footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .76rem; }
+      footer a { color: var(--navy); }
+      @media (max-width: 430px) { header { padding: 20px; } .activity { grid-template-columns: 56px 1fr; gap: 10px; padding-right: 13px; } }
+      @media print { body { padding: 0; background: #fff; } header { color: var(--ink); background: #fff; box-shadow: none; border: 2px solid var(--ink); } header p { color: var(--muted); } .quick, .controls { display: none; } .activity { break-inside: avoid; } }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <div class="eyebrow">G16 · Norway Cup 2026</div>
+        <h1>Dagsplan</h1>
+        <p>Felles dagsoversikt for lag Blå og Gul. Lagfargen på kortet viser hvem aktiviteten gjelder.</p>
+        <nav class="quick" aria-label="Nyttige lenker">
+          <a href="https://norwaycup.no/" target="_blank" rel="noopener">Norway Cup ↗</a>
+          <a href="https://norwaycup.cupmanager.net/2026,nb/result/team/75750514" target="_blank" rel="noopener">Lag Blå ↗</a>
+          <a href="https://norwaycup.cupmanager.net/2026,nb/result/team/75750516" target="_blank" rel="noopener">Lag Gul ↗</a>
+          <a href="https://docs.google.com/spreadsheets/d/1PNPtzOWldlc_ISDtcpd5LPu_wolyVmbm0dfaaa-Sp4Y/edit?usp=sharing" target="_blank" rel="noopener">Åpne planen ↗</a>
+        </nav>
+      </header>
+
+      <div class="controls" aria-label="Filtrer planen">
+        <button type="button" data-filter="all" aria-pressed="true">Hele dagen</button>
+        <button type="button" data-filter="matches" aria-pressed="false">⚽ Bare kamper</button>
+        <button type="button" data-filter="blue" aria-pressed="false"><span class="dot"></span>Blå</button>
+        <button type="button" data-filter="yellow" aria-pressed="false"><span class="dot yellow"></span>Gul</button>
+      </div>
+
+      <section aria-label="Dagsplan">
+        <div id="schedule" aria-live="polite"><div class="day-head"><h2 class="day-title">Dagsplan</h2><span class="date" id="plan-date">Henter planen …</span></div></div>
+        <p class="empty-state" id="empty-state">Ingen aktiviteter passer dette valget.</p>
+      </section>
+      <footer><span id="sync-status">Henter siste versjon fra planarket …</span> <a href="https://docs.google.com/spreadsheets/d/1PNPtzOWldlc_ISDtcpd5LPu_wolyVmbm0dfaaa-Sp4Y/edit?usp=sharing" target="_blank" rel="noopener">Åpne arket</a></footer>
+    </main>
+    <script>
+      const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1PNPtzOWldlc_ISDtcpd5LPu_wolyVmbm0dfaaa-Sp4Y/gviz/tq?sheet=Plan';
+      const TEAM_URLS = {
+        blue: 'https://norwaycup.cupmanager.net/2026,nb/result/team/75750514',
+        yellow: 'https://norwaycup.cupmanager.net/2026,nb/result/team/75750516'
+      };
+      const MAP_URLS = {
+        'rustad': 'https://norwaycup.no/wp-content/uploads/2026/07/Rustad_2026.pdf',
+        'valle hovin': 'https://norwaycup.no/wp-content/uploads/2026/07/Endelig-skilt-2-banekart.png',
+        'furuset': 'https://norwaycup.no/wp-content/uploads/2026/07/Furuset_2026-1.pdf',
+        'abildsø': 'https://norwaycup.no/wp-content/uploads/2026/07/Abildso_2026.pdf',
+        'tørteberg marienlyst': 'https://norwaycup.no/wp-content/uploads/2026/07/TortebergMarienlyst_2026.pdf',
+        'voldsløkka bjølsen': 'https://norwaycup.no/wp-content/uploads/2026/07/Voldslokka_Bjolsen_2026.pdf',
+        'ekeberg': 'https://norwaycup.no/wp-content/uploads/2026/07/Banekart-NC2026-2.pdf'
+      };
+      const buttons = document.querySelectorAll('[data-filter]');
+      const schedule = document.getElementById('schedule');
+      const emptyState = document.getElementById('empty-state');
+      let activeFilter = 'all';
+
+      const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+      })[character]);
+
+      function teamKey(value) {
+        const team = value.toLowerCase();
+        if (team.includes('begge')) return 'both';
+        if (team.includes('blå')) return 'blue';
+        if (team.includes('gul')) return 'yellow';
+        return 'neutral';
+      }
+
+      function badges(team) {
+        const blue = `<a class="badge blue" href="${TEAM_URLS.blue}" target="_blank" rel="noopener">Blå ↗</a>`;
+        const yellow = `<a class="badge yellow" href="${TEAM_URLS.yellow}" target="_blank" rel="noopener">Gul ↗</a>`;
+        if (team === 'both') return `<div class="badges">${blue}${yellow}</div>`;
+        if (team === 'blue') return `<div class="badges">${blue}</div>`;
+        if (team === 'yellow') return `<div class="badges">${yellow}</div>`;
+        return '';
+      }
+
+      function venueHtml(place) {
+        const escapedPlace = escapeHtml(place);
+        const normalize = (value) => value.toLowerCase().replace(/[^a-zæøå0-9]+/g, ' ').trim();
+        const normalized = normalize(place);
+        const mapEntry = Object.entries(MAP_URLS).find(([name]) => normalized.includes(normalize(name)) || normalize(name).includes(normalized));
+        return mapEntry ? `<a class="venue-link" href="${mapEntry[1]}" target="_blank" rel="noopener">${escapedPlace} ↗</a>` : escapedPlace;
+      }
+
+      function displayDate(value) {
+        const parts = value.match(/^(\d{1,2})[./](\d{1,2})[./](\d{4})$/);
+        if (!parts) return value;
+        const firstIsMonth = value.includes('/') && Number(parts[1]) <= 12;
+        const day = Number(firstIsMonth ? parts[2] : parts[1]);
+        const month = Number(firstIsMonth ? parts[1] : parts[2]);
+        const date = new Date(Number(parts[3]), month - 1, day);
+        return new Intl.DateTimeFormat('nb-NO', { weekday: 'long', day: 'numeric', month: 'long' }).format(date);
+      }
+
+      function render(rows) {
+        const dates = [...new Set(rows.map((row) => row.Dato || 'Dato ikke satt'))];
+        schedule.innerHTML = dates.map((date) => {
+          const cards = rows.filter((row) => (row.Dato || 'Dato ikke satt') === date).map((row) => {
+          const team = teamKey(row.Lag || '');
+          const isMatch = (row.Hva || '').toLowerCase() === 'kamp';
+          const surface = isMatch ? (row.Underlag || 'gress') : row.Underlag;
+          const details = [row.Sted ? venueHtml(row.Sted) : '', row.Bane && `bane ${escapeHtml(row.Bane)}`, surface && escapeHtml(surface)].filter(Boolean).join(' · ');
+          const title = isMatch && row.Motstander ? row.Motstander : row.Hva;
+          const homeAway = row.Hjemmeborte ? ` · ${escapeHtml(row.Hjemmeborte)}` : '';
+          const label = isMatch ? `<div class="match-label">Kamp${team !== 'neutral' ? ` · ${escapeHtml(row.Lag)}` : ''}${homeAway}</div>` : '';
+          const vest = String(row.Draktkrasj || '').toLowerCase() === 'ja' ? '<div class="vest-note">⚠ Ta med vester – draktkrasj</div>' : '';
+          const result = row.Resultat ? `<div class="result">Resultat: ${escapeHtml(row.Resultat)}</div>` : '';
+          return `<article class="activity ${isMatch ? 'match ' : ''}${team}" data-team="${team}" data-type="${isMatch ? 'match' : 'activity'}">
+            <div class="time${row.Klokke ? '' : ' empty'}">${escapeHtml(row.Klokke || 'Tid ikke satt')}</div>
+            <div>${label}<div class="activity-title">${escapeHtml(title || 'Aktivitet')}</div>${details ? `<div class="meta">${details}</div>` : ''}${result}${badges(team)}${vest}</div>
+          </article>`;
+          }).join('');
+          return `<section class="day" data-day><div class="day-head"><h2 class="day-title">${escapeHtml(displayDate(date))}</h2><span class="date">${escapeHtml(date)}</span></div><div class="timeline">${cards}</div></section>`;
+        }).join('');
+        applyFilter(activeFilter);
+      }
+
+      function applyFilter(filter) {
+        activeFilter = filter;
+        let visible = 0;
+        schedule.querySelectorAll('.activity').forEach((activity) => {
+          const show = filter === 'all' ||
+            (filter === 'matches' && activity.dataset.type === 'match') ||
+            (filter === 'blue' && ['blue', 'both'].includes(activity.dataset.team)) ||
+            (filter === 'yellow' && ['yellow', 'both'].includes(activity.dataset.team));
+          activity.classList.toggle('hidden', !show);
+          if (show) visible += 1;
+        });
+        schedule.querySelectorAll('[data-day]').forEach((day) => {
+          day.classList.toggle('hidden', !day.querySelector('.activity:not(.hidden)'));
+        });
+        emptyState.style.display = visible ? 'none' : 'block';
+      }
+
+      buttons.forEach((button) => button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        applyFilter(filter);
+      }));
+
+      function showLoadError() {
+          schedule.innerHTML = '<div class="empty-state" style="display:block">Kunne ikke hente planen. Kontroller at Google-arket er delt med «Alle med linken», og prøv å laste siden på nytt.</div>';
+          document.getElementById('sync-status').textContent = 'Kunne ikke synkronisere med Google Sheets.';
+      }
+
+      const loadTimeout = window.setTimeout(showLoadError, 10000);
+      window.google = window.google || {};
+      window.google.visualization = window.google.visualization || {};
+      window.google.visualization.Query = window.google.visualization.Query || {};
+      window.google.visualization.Query.setResponse = (response) => {
+        window.clearTimeout(loadTimeout);
+        if (!response || response.status === 'error' || !response.table) { showLoadError(); return; }
+        const headers = response.table.cols.map((column) => column.label);
+        const rows = response.table.rows.map(({ c: cells }) => Object.fromEntries(headers.map((header, index) => {
+          const cell = cells[index];
+          return [header, cell ? String(cell.f ?? cell.v ?? '').trim() : ''];
+        }))).filter((row) => row.Hva);
+        if (!rows.length) { showLoadError(); return; }
+        render(rows);
+        document.getElementById('sync-status').textContent = `Oppdatert fra Google Sheets ${new Date().toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' })}.`;
+      };
+
+      const sheetScript = document.createElement('script');
+      sheetScript.src = `${SHEET_URL}&headers=1&cache=${Date.now()}`;
+      sheetScript.onerror = () => { window.clearTimeout(loadTimeout); showLoadError(); };
+      document.head.appendChild(sheetScript);
+    </script>
+  </body>
+</html>
