@@ -11,33 +11,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --ink: #17202b; --muted: #66717f; --line: #dfe4ea; --bg: #f4f7fa;
+        --ink: #17202b; --muted: #66717f; --line: #dfe4ea; --bg: #f7f8fa;
         --card: #fff; --blue: #1769aa; --blue-soft: #e3f1fb;
         --yellow: #f4c430; --yellow-soft: #fff4bf; --navy: #173f73;
       }
       * { box-sizing: border-box; }
-      body { margin: 0; padding: 24px 14px 60px; color: var(--ink); background: var(--bg); font: 15px/1.45 Inter, system-ui, sans-serif; }
-      .wrap { width: min(100%, 740px); margin: auto; }
-      header { padding: 24px; border-radius: 20px; color: #fff; background: linear-gradient(135deg, #173f73, #0d6e9f); box-shadow: 0 16px 36px rgba(23,63,115,.18); }
+      body { margin: 0; padding: 28px 16px 64px; color: var(--ink); background: var(--bg); font: 15px/1.5 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      .wrap { width: min(100%, 760px); margin: auto; }
+      header { padding: 8px 2px 24px; border-bottom: 1px solid var(--line); }
       .eyebrow, h1, .day-title, .time, .activity-title, button { font-family: Archivo, system-ui, sans-serif; }
-      .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; opacity: .78; }
-      h1 { margin: .2em 0 .3em; font-size: clamp(2rem, 8vw, 3.35rem); line-height: .98; letter-spacing: -.035em; }
-      header p { max-width: 52ch; margin: 0; color: rgba(255,255,255,.82); }
-      .quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-      .quick a { padding: 7px 12px; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; color: #fff; font-size: .78rem; font-weight: 600; text-decoration: none; }
-      .quick a:hover { background: #fff; color: var(--navy); }
-      .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 12px; }
-      button { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--card); color: var(--muted); font-size: .82rem; font-weight: 700; cursor: pointer; }
+      .eyebrow { color: var(--navy); font-size: .72rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+      h1 { margin: .2em 0 .25em; font-size: clamp(2rem, 7vw, 3rem); line-height: 1; letter-spacing: -.035em; }
+      header p { max-width: 52ch; margin: 0; color: var(--muted); }
+      .quick { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+      .quick a { padding: 7px 11px; border: 1px solid var(--line); border-radius: 8px; color: var(--navy); background: var(--card); font-size: .78rem; font-weight: 600; text-decoration: none; }
+      .quick a:hover { border-color: var(--navy); background: var(--navy); color: #fff; }
+      .weather { width: min(100%, 420px); margin: 24px auto 6px; padding: 13px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+      .weather-title { margin: 0 0 10px; font: 700 .72rem Archivo, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+      .yr-card { display: block; width: 100%; height: 345px; border: 0; border-radius: 9px; background: #fff; }
+      .yr-credit { margin-top: 7px; color: var(--muted); font-size: .7rem; }
+      .yr-credit a { color: var(--navy); }
+      .controls { display: flex; flex-wrap: wrap; gap: 7px; margin: 26px 0 8px; padding-bottom: 4px; }
+      button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--muted); font-size: .8rem; font-weight: 700; cursor: pointer; }
       button[aria-pressed="true"] { border-color: var(--navy); background: var(--navy); color: #fff; }
       button:focus-visible, a:focus-visible { outline: 3px solid #ffca28; outline-offset: 3px; }
       .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue); }
       .dot.yellow { background: var(--yellow); }
-      .day-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 26px 2px 12px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
-      .day-title { font-size: 1.15rem; font-weight: 800; }
+      .day-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 30px 2px 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+      .day-title { margin: 0; font-size: 1.15rem; font-weight: 800; text-transform: capitalize; }
       .date { color: var(--muted); font-size: .82rem; }
-      .timeline { display: grid; gap: 10px; }
-      .activity { position: relative; display: grid; grid-template-columns: 68px 1fr; gap: 14px; overflow: hidden; padding: 16px 18px 16px 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: 0 3px 12px rgba(21,42,62,.04); }
-      .activity::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: #aeb7c1; }
+      .timeline { display: grid; gap: 9px; }
+      .activity { position: relative; display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 15px; overflow: hidden; padding: 15px 18px 15px 21px; border: 1px solid var(--line); border-radius: 11px; background: var(--card); box-shadow: 0 2px 7px rgba(21,42,62,.035); }
+      .activity::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: #aeb7c1; }
       .activity.blue::before { background: var(--blue); }
       .activity.yellow::before { background: var(--yellow); }
       .activity.both::before { background: linear-gradient(to bottom, var(--blue) 0 50%, var(--yellow) 50%); }
@@ -49,25 +54,34 @@
       .match-time .label { color: var(--muted); font: 700 .56rem Archivo, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
       .match-time .value { font: 800 1.05rem/1 Archivo, sans-serif; letter-spacing: -.02em; }
       .activity-title { font-weight: 800; }
-      .meta { margin-top: 3px; color: var(--muted); font-size: .83rem; }
+      .meta { margin-top: 9px; color: var(--muted); font-size: .82rem; }
       .badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
       .badge { padding: 3px 8px; border-radius: 6px; font: 700 .67rem Archivo, sans-serif; letter-spacing: .04em; text-decoration: none; text-transform: uppercase; }
       .badge.blue { color: #fff; background: var(--blue); }
       .badge.yellow { color: #443600; background: var(--yellow); }
-      .match { border-width: 1.5px; }
+      .match { border-width: 1px; }
       .activity.match { grid-template-columns: 94px 1fr; }
-      .match.blue { background: linear-gradient(110deg, var(--blue-soft), #fff 45%); }
-      .match.yellow { background: linear-gradient(110deg, var(--yellow-soft), #fff 45%); }
+      .match.blue, .match.yellow { background: var(--card); }
       .match-label { margin-bottom: 3px; color: var(--navy); font: 700 .68rem Archivo, sans-serif; letter-spacing: .09em; text-transform: uppercase; }
       .venue-link { color: var(--navy); font-weight: 700; text-underline-offset: 2px; }
       .vest-note { margin-top: 10px; padding: 8px 10px; border-radius: 8px; color: #7a3100; background: #fff0dc; font-size: .78rem; font-weight: 700; }
-      .result { margin-top: 7px; font-weight: 700; }
+      .match-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .match-actions .stream-link { margin-top: 0; }
+      .stream-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 7px 11px; border-radius: 8px; color: #fff; background: #b21f2d; font: 400 .76rem Archivo, sans-serif; text-decoration: none; }
+      .stream-link:hover { background: #8d1722; }
+      .fixture { display: grid; grid-template-columns: minmax(110px, 180px) auto minmax(110px, 240px); gap: 9px; align-items: center; width: fit-content; max-width: 100%; margin-top: 7px; font-family: Archivo, sans-serif; }
+      .fixture .home { text-align: left; }
+      .fixture .away { text-align: left; }
+      .fixture .club { font-size: .95rem; }
+      .fixture .our-team { font-weight: 900; }
+      .score { min-width: 52px; padding: 7px 9px; border-radius: 8px; color: #fff; background: var(--ink); font-size: 1.05rem; font-weight: 800; line-height: 1; text-align: center; }
+      .score.pending { color: var(--muted); background: var(--bg); border: 1px solid var(--line); }
       .hidden { display: none; }
       .empty-state { display: none; padding: 24px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); text-align: center; background: #fff; }
       footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .76rem; }
       footer a { color: var(--navy); }
-      @media (max-width: 430px) { header { padding: 20px; } .activity { grid-template-columns: 56px 1fr; gap: 10px; padding-right: 13px; } .activity.match { grid-template-columns: 88px 1fr; } }
-      @media print { body { padding: 0; background: #fff; } header { color: var(--ink); background: #fff; box-shadow: none; border: 2px solid var(--ink); } header p { color: var(--muted); } .quick, .controls { display: none; } .activity { break-inside: avoid; } }
+      @media (max-width: 520px) { body { padding: 18px 11px 48px; } header { padding-top: 3px; } .quick a { flex: 1 1 auto; text-align: center; } .controls { gap: 6px; } button { flex: 1 1 auto; justify-content: center; padding-inline: 9px; } .activity { grid-template-columns: 54px minmax(0, 1fr); gap: 10px; padding: 14px 12px 14px 17px; } .activity.match { grid-template-columns: minmax(0, 1fr); gap: 12px; } .match-times { grid-template-columns: repeat(2, max-content); gap: 22px; padding-bottom: 11px; border-bottom: 1px solid var(--line); } .fixture { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); width: 100%; gap: 6px; } .fixture .club { overflow-wrap: anywhere; font-size: .82rem; } .score { min-width: 38px; padding: 6px 4px; font-size: .95rem; } .match-actions { align-items: flex-start; } }
+      @media print { body { padding: 0; background: #fff; } header { border-bottom: 1px solid var(--ink); } .quick, .weather, .controls { display: none; } .activity { box-shadow: none; break-inside: avoid; } }
     </style>
   </head>
   <body>
@@ -82,6 +96,19 @@
           <a href="https://norwaycup.cupmanager.net/2026,nb/result/team/75750516" target="_blank" rel="noopener">Gul lagside ↗</a>
         </nav>
       </header>
+
+      <aside class="weather" aria-labelledby="weather-title">
+        <h2 class="weather-title" id="weather-title">Været i Oslo</h2>
+        <iframe
+          class="yr-card"
+          src="https://www.yr.no/nn/innhald/1-72837/card.html"
+          title="Værvarsel for Oslo fra Yr"
+          loading="lazy"
+        ></iframe>
+        <div class="yr-credit">
+          Værdata fra <a href="https://www.yr.no/nn/innhald/1-72837/" target="_blank" rel="noopener">Yr</a> (MET / NRK)
+        </div>
+      </aside>
 
       <div class="controls" aria-label="Filtrer planen">
         <button type="button" data-filter="all" aria-pressed="true">Hele dagen</button>
@@ -98,10 +125,6 @@
     </main>
     <script>
       const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1PNPtzOWldlc_ISDtcpd5LPu_wolyVmbm0dfaaa-Sp4Y/gviz/tq?sheet=Plan';
-      const TEAM_URLS = {
-        blue: 'https://norwaycup.cupmanager.net/2026,nb/result/team/75750514',
-        yellow: 'https://norwaycup.cupmanager.net/2026,nb/result/team/75750516'
-      };
       const MAP_URLS = {
         'rustad': 'https://norwaycup.no/wp-content/uploads/2026/07/Rustad_2026.pdf',
         'valle hovin': 'https://norwaycup.no/wp-content/uploads/2026/07/Endelig-skilt-2-banekart.png',
@@ -129,8 +152,8 @@
       }
 
       function badges(team) {
-        const blue = `<a class="badge blue" href="${TEAM_URLS.blue}" target="_blank" rel="noopener">Blå ↗</a>`;
-        const yellow = `<a class="badge yellow" href="${TEAM_URLS.yellow}" target="_blank" rel="noopener">Gul ↗</a>`;
+        const blue = '<span class="badge blue">Blå</span>';
+        const yellow = '<span class="badge yellow">Gul</span>';
         if (team === 'both') return `<div class="badges">${blue}${yellow}</div>`;
         if (team === 'blue') return `<div class="badges">${blue}</div>`;
         if (team === 'yellow') return `<div class="badges">${yellow}</div>`;
@@ -167,6 +190,29 @@
         </div>`;
       }
 
+      function fixtureHtml(row, team) {
+        const ourName = `Varegg ${team === 'blue' ? 'Blå' : team === 'yellow' ? 'Gul' : ''}`.trim();
+        const opponent = escapeHtml(row.Motstander || 'Motstander ikke satt');
+        const ourTeam = `<strong class="club our-team">${escapeHtml(ourName)}</strong>`;
+        const isAway = String(row.Hjemmeborte || '').toLowerCase() === 'borte';
+        const home = isAway ? opponent : ourTeam;
+        const away = isAway ? ourTeam : opponent;
+        const hasResult = Boolean(row.Resultat);
+        const score = escapeHtml(row.Resultat || '–');
+        return `<div class="fixture" aria-label="${escapeHtml(ourName)}, ${escapeHtml(row.Hjemmeborte || '')}lag">
+          <div class="home club">${home}</div><div class="score${hasResult ? '' : ' pending'}">${score}</div><div class="away club">${away}</div>
+        </div>`;
+      }
+
+      function streamHtml(value) {
+        if (!value) return '';
+        try {
+          const url = new URL(value);
+          if (!['http:', 'https:'].includes(url.protocol)) return '';
+          return `<a class="stream-link" href="${escapeHtml(url.href)}" target="_blank" rel="noopener">📺 Se kampen direkte ↗</a>`;
+        } catch { return ''; }
+      }
+
       function render(rows) {
         const dates = [...new Set(rows.map((row) => row.Dato || 'Dato ikke satt'))];
         schedule.innerHTML = dates.map((date) => {
@@ -175,14 +221,16 @@
           const isMatch = (row.Hva || '').toLowerCase() === 'kamp';
           const surface = isMatch ? (row.Underlag || 'gress') : row.Underlag;
           const details = [row.Sted ? venueHtml(row.Sted) : '', row.Bane && `bane ${escapeHtml(row.Bane)}`, surface && escapeHtml(surface)].filter(Boolean).join(' · ');
-          const title = isMatch && row.Motstander ? row.Motstander : row.Hva;
-          const homeAway = row.Hjemmeborte ? ` · ${escapeHtml(row.Hjemmeborte)}` : '';
-          const label = isMatch ? `<div class="match-label">Kamp${team !== 'neutral' ? ` · ${escapeHtml(row.Lag)}` : ''}${homeAway}</div>` : '';
+          const title = row.Hva;
+          const label = isMatch ? '<div class="match-label">Kamp</div>' : '';
           const vest = String(row.Draktkrasj || '').toLowerCase() === 'ja' ? '<div class="vest-note">⚠ Ta med vester – draktkrasj</div>' : '';
-          const result = row.Resultat ? `<div class="result">Resultat: ${escapeHtml(row.Resultat)}</div>` : '';
+          const fixture = isMatch ? fixtureHtml(row, team) : `<div class="activity-title">${escapeHtml(title || 'Aktivitet')}</div>`;
+          const stream = isMatch ? streamHtml(row.stream || row.Stream || row.Streaming) : '';
+          const markers = badges(team);
+          const actions = isMatch ? (stream ? `<div class="match-actions">${stream}</div>` : '') : markers;
           return `<article class="activity ${isMatch ? 'match ' : ''}${team}" data-team="${team}" data-type="${isMatch ? 'match' : 'activity'}">
             ${isMatch ? matchTimes(row.Klokke || '') : `<div class="time${row.Klokke ? '' : ' empty'}">${escapeHtml(row.Klokke || 'Tid ikke satt')}</div>`}
-            <div>${label}<div class="activity-title">${escapeHtml(title || 'Aktivitet')}</div>${details ? `<div class="meta">${details}</div>` : ''}${result}${badges(team)}${vest}</div>
+            <div>${label}${fixture}${details ? `<div class="meta">${details}</div>` : ''}${actions}${vest}</div>
           </article>`;
           }).join('');
           return `<section class="day" data-day><div class="day-head"><h2 class="day-title">${escapeHtml(displayDate(date))}</h2><span class="date">${escapeHtml(date)}</span></div><div class="timeline">${cards}</div></section>`;
